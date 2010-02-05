@@ -31,6 +31,10 @@ describe "Settingslogic" do
     Settings2.namespace.should == 'setting1'
   end
 
+  it "should get a key by a path" do
+    Settings.key_by_path("language.haskell.paradigm").should == "functional"
+  end
+
   it "should distinguish nested keys" do
     Settings.language.haskell.paradigm.should == 'functional'
     Settings.language.smalltalk.paradigm.should == 'object oriented'

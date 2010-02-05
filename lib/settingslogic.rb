@@ -26,6 +26,19 @@ class Settingslogic < Hash
       end
     end
     
+    def key_by_path(key_path, separator = ".")
+      # Settings.get_nested_key('some.nested.setting')
+      tmp = instance
+      key_path.split(separator).each do |k|
+        if tmp[k].respond_to?("[]") && !tmp[k].nil?
+          tmp = tmp[k]
+        else
+          return nil
+        end
+      end
+      tmp
+    end
+    
     def [](key)
       # Setting.key.value or Setting[:key][:value] or Setting['key']['value']
       fetch(key.to_s,nil)
