@@ -8,7 +8,7 @@ begin
     gem.summary = "A simple and straightforward settings solution that uses an ERB enabled YAML file and a singleton design pattern."
     gem.email = "bjohnson@binarylogic.com"
     gem.homepage = "http://github.com/binarylogic/settingslogic"
-    gem.authors = ["Ben Johnson of Binary Logic"]
+    gem.authors = ["Ben Johnson of Binary Logic", "Mihai Târnovan of Cubus Arts", "Gabriel Târnovan of Cubus Arts"]
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError

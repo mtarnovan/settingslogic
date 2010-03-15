@@ -17,3 +17,8 @@ language:
 
 collides:
   does: not
+  
+default_settings4:
+  haskell:
+    paradigm: voodoo
+    foo: bar

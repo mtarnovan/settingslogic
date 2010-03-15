@@ -1,3 +1,8 @@
+== 2.1.0 released 2010-03-15
+
+* Added key_by_path (e.g. Settings.key_by_path "some.nested.setting")
+* Default namespace support (defaults are merged)
+
 == 2.0.2 released 2009-08-22
 
 * Define methods during method_missing instead of during initialization. Allows for modification on the fly.

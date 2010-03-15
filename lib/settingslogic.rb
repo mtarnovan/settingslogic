@@ -26,6 +26,14 @@ class Settingslogic < Hash
       end
     end
     
+    def default_namespace(value = nil)
+      if value.nil?
+        @default_namespace || 'defaults'
+      else
+        @default_namespace = value
+      end
+    end
+    
     def key_by_path(key_path, separator = ".")
       # Settings.get_nested_key('some.nested.setting')
       tmp = instance
@@ -85,8 +93,9 @@ class Settingslogic < Hash
       self.replace hash_or_file
     else
       hash = YAML.load(ERB.new(File.read(hash_or_file)).result).to_hash
+      default_hash = hash[self.class.default_namespace] || {}      
       hash = hash[self.class.namespace] if self.class.namespace
-      self.replace hash
+      self.replace default_hash.deep_merge(hash)
     end
     @section = section || hash_or_file  # so end of error says "in application.yml"
     create_accessors!

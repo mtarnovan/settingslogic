@@ -30,6 +30,11 @@ describe "Settingslogic" do
     Settings.namespace.should be_nil
     Settings2.namespace.should == 'setting1'
   end
+  
+  it "should return the default namespace" do
+    Settings.default_namespace.should == 'defaults'
+    Settings4.default_namespace.should == 'default_settings4'
+  end
 
   it "should get a key by a path" do
     Settings.key_by_path("language.haskell.paradigm").should == "functional"
@@ -42,6 +47,12 @@ describe "Settingslogic" do
   
   it "should not collide with global methods" do
     Settings3.collides.does.should == 'not'
+  end
+  
+  it "should merge defaults" do
+    Settings4.haskell.paradigm.should == 'functional'
+    Settings4.haskell.foo.should == 'bar'
+    Settings4.smalltalk.paradigm.should == 'object oriented'
   end
   
   it "should raise a helpful error message" do
