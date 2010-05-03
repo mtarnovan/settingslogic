@@ -6,9 +6,6 @@ class Settingslogic < Hash
   class MissingSetting < StandardError; end
   
   class << self
-    def name # :nodoc:
-      instance.key?("name") ? instance.name : super
-    end
     
     def source(value = nil)
       if value.nil?

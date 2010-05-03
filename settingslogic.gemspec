@@ -4,13 +4,13 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{settingslogic}
-  s.version = "2.1.0"
+  s.name = %q{cubus-settingslogic}
+  s.version = "2.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Ben Johnson of Binary Logic", "Mihai T\303\242rnovan of Cubus Arts", "Gabriel T\303\242rnovan of Cubus Arts"]
+  s.authors = ["Ben Johnson of Binary Logic", "Mihai Târnovan of Cubus Arts", "Gabriel Târnovan of Cubus Arts"]
   s.date = %q{2010-03-15}
-  s.email = %q{bjohnson@binarylogic.com}
+  s.email = %q{bjohnson@binarylogic.com, mihai.tarnovan@cubus.ro, gabriel.tarnovan@cubus.ro}
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"

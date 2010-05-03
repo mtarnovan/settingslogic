@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "settingslogic"
+    gem.name = "cubus-settingslogic"
     gem.summary = "A simple and straightforward settings solution that uses an ERB enabled YAML file and a singleton design pattern."
     gem.email = "bjohnson@binarylogic.com"
     gem.homepage = "http://github.com/binarylogic/settingslogic"
