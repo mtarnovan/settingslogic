@@ -54,7 +54,16 @@ describe "Settingslogic" do
     Settings4.haskell.foo.should == 'bar'
     Settings4.smalltalk.paradigm.should == 'object oriented'
   end
-  
+
+  it "should allow numeric keys" do
+    Settings.with_numbers.should == { 12 => 'hello', '21' => 'bye' }
+  end
+
+  it "should allow accessing numeric keys as string and viceversa" do
+    Settings.with_numbers[12].should == Settings.with_numbers['12']
+    Settings.with_numbers[21].should == Settings.with_numbers['21']
+  end
+
   it "should raise a helpful error message" do
     e = nil
     begin

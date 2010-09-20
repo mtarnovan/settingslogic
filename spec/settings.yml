@@ -22,3 +22,7 @@ default_settings4:
   haskell:
     paradigm: voodoo
     foo: bar
+
+with_numbers:
+  12: 'hello'
+  '21': 'bye'

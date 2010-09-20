@@ -98,6 +98,11 @@ class Settingslogic < Hash
     create_accessors!
   end
 
+  def [](key)
+    # @settings.key.value or @settings[:key][:value] or @settings['key']['value']
+    super(key.to_s)
+  end
+
   # Called for dynamically-defined keys, and also the first key deferenced at the top-level, if load! is not used.
   # Otherwise, create_accessors! (called by new) will have created actual methods for each key.
   def method_missing(key, *args, &block)
@@ -116,16 +121,18 @@ class Settingslogic < Hash
     # rather than the app_yml['deploy_to'] hash.  Jeezus.
     def create_accessors!
       self.each do |key,val|
-        # Use instance_eval/class_eval because they're actually more efficient than define_method{}
-        # http://stackoverflow.com/questions/185947/ruby-definemethod-vs-def
-        # http://bmorearty.wordpress.com/2009/01/09/fun-with-rubys-instance_eval-and-class_eval/
-        self.class.class_eval <<-EndEval
-          def #{key}
-            return @#{key} if @#{key}  # cache (performance)
-            value = fetch('#{key}')
-            @#{key} = value.is_a?(Hash) ? self.class.new(value, "'#{key}' section in #{@section}") : value
-          end
-        EndEval
+        unless key.to_s.first.to_i.to_s == key.to_s.first # key.first.digit?
+          # Use instance_eval/class_eval because they're actually more efficient than define_method{}
+          # http://stackoverflow.com/questions/185947/ruby-definemethod-vs-def
+          # http://bmorearty.wordpress.com/2009/01/09/fun-with-rubys-instance_eval-and-class_eval/
+          self.class.class_eval <<-EndEval
+            def #{key}
+              return @#{key} if @#{key}  # cache (performance)
+              value = fetch('#{key}')
+              @#{key} = value.is_a?(Hash) ? self.class.new(value, "'#{key}' section in #{@section}") : value
+            end
+          EndEval
+        end
       end
     end
 
