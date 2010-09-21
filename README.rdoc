@@ -15,13 +15,11 @@ So here is my question to you.....is Settingslogic a great settings solution or 
 
 Install from rubyforge/gemcutter:
 
-  sudo gem install settingslogic
+  sudo gem install cubus-settingslogic
 
-Or as a Rails plugin:
-
-  script/plugin install git://github.com/binarylogic/settingslogic.git
-
-Settingslogic does not have any dependencies on Rails.  Installing as a gem is recommended.
+Settingslogic needs Hash#deep_merge which is provided by active_support. If you
+don't use active_support you can provide your own implementation or use ruby
+facets (http://facets.rubyforge.org/apidoc/api/core/classes/Hash.html#M000216).
 
 == Usage
 
