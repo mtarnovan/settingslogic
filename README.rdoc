@@ -36,9 +36,9 @@ that looks like:
   end
 
 Name it Settings, name it Config, name it whatever you want. Add as many or as few as you like. A good place to put
-this file in a rails app is app/models/settings.rb
+this file in a rails app is app/models/settings.rb. Declare your namespace to Rails.env if you use per-environment
+settings. These will be merged with the settings in the default namespace.
 
-I felt adding a settings file in your app was more straightforward, less tricky, and more flexible.
 
 === 2. Create your settings
 
@@ -82,6 +82,9 @@ Using a namespace allows us to change our configuration depending on our environ
   >> Settings.awesome_setting
   => "Did you know 5 + 5 = 10?"
 
+  >> Settings.key_by_path "cool.saweet"
+  => "nested settings"
+  
 You can use these settings anywhere, for example in a model:  
 
   class Post < ActiveRecord::Base
@@ -113,31 +116,6 @@ Modifying our model example:
   
 This would allow you to specify a custom value for per_page just for posts, or
 to fall back to your default value if not specified.
-
-== Note on Sinatra / Capistrano / Vlad
-
-Each of these frameworks uses a +set+ convention for settings, which actually defines methods
-in the global Object namespace:
-
-  set :application, "myapp"  # does "def application" globally
-
-This can cause collisions with Settingslogic, since those methods are global. Luckily, the
-solution is to just add a call to load! in your class:
- 
-  class Settings < Settingslogic
-    source "#{Rails.root}/config/application.yml"
-    namespace Rails.env
-    load!
-  end
-
-It's probably always safest to add load! to your class, since this guarantees settings will be
-loaded at that time, rather than lazily later via method_missing.
-
-Finally, you can reload all your settings later as well:
-
-  Settings.reload!
-
-This is useful if you want to support changing your settings YAML without restarting your app.
 
 == Author
 

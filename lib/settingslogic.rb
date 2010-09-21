@@ -115,24 +115,19 @@ class Settingslogic < Hash
   end
 
   private
-    # This handles naming collisions with Sinatra/Vlad/Capistrano. Since these use a set()
-    # helper that defines methods in Object, ANY method_missing ANYWHERE picks up the Vlad/Sinatra
-    # settings!  So settings.deploy_to title actually calls Object.deploy_to (from set :deploy_to, "host"),
-    # rather than the app_yml['deploy_to'] hash.  Jeezus.
     def create_accessors!
       self.each do |key,val|
-        unless key.to_s.first.to_i.to_s == key.to_s.first # key.first.digit?
-          # Use instance_eval/class_eval because they're actually more efficient than define_method{}
-          # http://stackoverflow.com/questions/185947/ruby-definemethod-vs-def
-          # http://bmorearty.wordpress.com/2009/01/09/fun-with-rubys-instance_eval-and-class_eval/
-          self.class.class_eval <<-EndEval
+        begin
+          Kernel.Float(key.to_s) # allow numeric keys          
+        rescue ArgumentError, TypeError
+          self.class.class_eval(<<-EndEval, __FILE__, __LINE__ + 1)
             def #{key}
               return @#{key} if @#{key}  # cache (performance)
               value = fetch('#{key}')
               @#{key} = value.is_a?(Hash) ? self.class.new(value, "'#{key}' section in #{@section}") : value
             end
           EndEval
-        end
+        end        
       end
     end
 

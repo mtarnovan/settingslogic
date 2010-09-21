@@ -1,3 +1,10 @@
+== 2.2.0 released 2010-09-21
+
+* better stacktrace info for injected methods
+* support for numeric keys (by Ignacio Carrera)
+* tests pass on active_support 3
+* tests pass on ruby 1.9.2
+
 == 2.1.1 released 2010-05-03
 
 * removed name method due to conflict with ZenTest

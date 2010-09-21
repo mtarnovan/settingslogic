@@ -1,7 +1,8 @@
 require 'spec'
 require 'rubygems'
-require 'ruby-debug' if RUBY_VERSION < '1.9'  # ruby-debug does not work on 1.9.1 yet
+require 'ruby-debug'
 require 'active_support'
+require 'active_support/core_ext/hash'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
